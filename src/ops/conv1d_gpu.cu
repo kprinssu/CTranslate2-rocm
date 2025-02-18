@@ -32,6 +32,7 @@ namespace ctranslate2 {
       const int input_length = input.dim(2);
       const int output_length = output.dim(2);
       const int out_channels = weight.dim(0);
+      const int in_channels_per_group = weight.dim(1);
       const int kernel_size = weight.dim(2);
 
       miopenDataType_t data_type = cuda::get_cudnn_data_type(input.dtype());
@@ -49,7 +50,7 @@ namespace ctranslate2 {
       miopenTensorDescriptor_t weight_desc;
       CUDNN_CHECK(miopenCreateTensorDescriptor(&weight_desc));
       CUDNN_CHECK(miopenSet4dTensorDescriptor(weight_desc, data_type,
-                                             out_channels, in_channels, 1, kernel_size));
+                                             out_channels, in_channels_per_group, 1, kernel_size));
 
       miopenConvolutionDescriptor_t conv_desc;
       CUDNN_CHECK(miopenCreateConvolutionDescriptor(&conv_desc));
@@ -57,10 +58,17 @@ namespace ctranslate2 {
                                                   miopenConvolution,
                                                   /*pad_h=*/0, /*pad_w=*/_padding,
                                                   /*stride_h=*/1, /*stride_w=*/_stride,
-                                                  /*dilation_h=*/1, /*dilation_w=*/_dilation
-                                                  ));
+                                                  /*dilation_h=*/1, /*dilation_w=*/_dilation,
+                                                  CUDNN_CROSS_CORRELATION,
+                                                  CUDNN_DATA_FLOAT));
 
-      miopenHandle_t handle = cuda::get_cudnn_handle();
+      CUDNN_CHECK(cudnnSetConvolutionMathType(conv_desc, CUDNN_DEFAULT_MATH));
+      if (_groups > 1)
+        CUDNN_CHECK(cudnnSetConvolutionGroupCount(conv_desc, _groups));
+      if (data_type == CUDNN_DATA_HALF)
+        CUDNN_CHECK(cudnnSetConvolutionMathType(conv_desc, CUDNN_TENSOR_OP_MATH));
+
+      cudnnHandle_t handle = cuda::get_cudnn_handle();
 
       miopenConvFwdAlgorithm_t algo;
 
