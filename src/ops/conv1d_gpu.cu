@@ -67,8 +67,8 @@ namespace ctranslate2 {
       size_t workspace_size = 0;
       void* workspace = nullptr;
       CUDNN_CHECK(miopenConvolutionForwardGetWorkSpaceSize(handle,
-                                                          input_desc,
                                                           weight_desc,
+                                                          input_desc,
                                                           conv_desc,
                                                           output_desc,
                                                           &workspace_size));
@@ -148,7 +148,7 @@ namespace ctranslate2 {
                                             output.buffer(),
                                             workspace,
                                             workspace_size));
-      
+
       }
 
       if (workspace)
