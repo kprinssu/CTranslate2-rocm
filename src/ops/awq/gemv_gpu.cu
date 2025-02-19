@@ -1,6 +1,33 @@
 #include "cuda/utils.h"
 #include "dequantize.cuh"
+#ifdef CT2_USE_HIP
+#include <hip/hip_runtime.h>
+#include <hipblas/hipblas.h>
+#define cudaMemcpyAsync hipMemcpyAsync
+#define cudaMemcpyDeviceToDevice hipMemcpyDeviceToDevice
+#define cudaMemcpyDeviceToHost hipMemcpyDeviceToHost
+#define cudaMemcpyHostToDevice hipMemcpyHostToDevice
+#define cublasSgemm hipblasSgemm
+#define CUBLAS_OP_T HIPBLAS_OP_T
+#define CUBLAS_OP_N HIPBLAS_OP_N
+#define cudaDataType_t  hipDataType
+#define cublasComputeType_t hipblasComputeType_t
+#define CUDA_R_16F HIP_R_16F
+#define CUBLAS_COMPUTE_16F HIPBLAS_COMPUTE_16F
+#define CUBLAS_COMPUTE_32F HIPBLAS_COMPUTE_32F
+#define CUBLAS_COMPUTE_32I HIPBLAS_COMPUTE_32I
+#define CUDA_R_32F HIP_R_32F
+#define CUDA_R_16BF HIP_R_16BF
+#define cublasGemmEx hipblasGemmEx_v2
+#define CUDA_R_8I HIP_R_8I
+#define CUDA_R_32I HIP_R_32I
+#define CUBLAS_GEMM_DEFAULT_TENSOR_OP HIPBLAS_GEMM_DEFAULT
+#define cublasSgemmStridedBatched hipblasSgemmStridedBatched
+#define cublasGemmStridedBatchedEx hipblasGemmStridedBatchedEx_v2
+#else
+#include <cuda_runtime.h>
 #include <cublas_v2.h>
+#endif
 #include <ctranslate2/ops/awq/gemv.h>
 #define PACK_FACTOR 8
 #define WARP_SIZE 32
