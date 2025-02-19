@@ -1,5 +1,12 @@
 #pragma once
+#ifdef CT2_USE_HIP
+#include <hip/hip_fp16.h>
+#include <hip/hip_bf16.h>
+#include <hip/hip_runtime.h>
+
+#else
 #include <cuda_fp16.h>
+#endif
 
 namespace ctranslate2 {
   namespace ops {
