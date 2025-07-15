@@ -58,9 +58,8 @@ namespace ctranslate2 {
                                                   miopenConvolution,
                                                   /*pad_h=*/0, /*pad_w=*/_padding,
                                                   /*stride_h=*/1, /*stride_w=*/_stride,
-                                                  /*dilation_h=*/1, /*dilation_w=*/_dilation,
-                                                  CUDNN_CROSS_CORRELATION,
-                                                  CUDNN_DATA_FLOAT));
+                                                  /*dilation_h=*/1, /*dilation_w=*/_dilation
+                                                ));
 
       CUDNN_CHECK(cudnnSetConvolutionMathType(conv_desc, CUDNN_DEFAULT_MATH));
       if (_groups > 1)
