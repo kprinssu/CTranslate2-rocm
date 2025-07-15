@@ -8,22 +8,10 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#ifdef CT2_USE_HIP
-#include <hip/hip_fp16.h>
-#include <hip/hip_bf16.h>
-#include <hip/hip_runtime.h>
-
-#define __nv_bfloat16 __hip_bfloat16
-__device__ inline void __syncwarp(uint32_t mask){} //TODO: 6.1 should have this but it doesn't?
-#else
-
-
 #include <cuda_fp16.h>
 
 #if defined(__CUDA_ARCH__) && __CUDA_ARCH__ >= 800
 #include <cuda_bf16.h>
-#endif
-
 #endif
 
 #include <cute/algorithm/copy.hpp>
