@@ -273,9 +273,6 @@ set(CUDA_SOURCES
   src/ops/topp_mask_gpu.cu
   src/ops/quantize_gpu.cu
   src/ops/nccl_ops_gpu.cu
-  src/ops/awq/gemm_gpu.cu
-  src/ops/awq/gemv_gpu.cu
-  src/ops/awq/dequantize_gpu.cu
 )
 set(LIBRARIES
   ${CMAKE_THREAD_LIBS_INIT}
