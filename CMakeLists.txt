@@ -752,11 +752,6 @@ if(NOT (WITH_CUDA OR WITH_HIP))
   else()
     add_library(${PROJECT_NAME} ${SOURCES})
   endif()
-endif()
-
-
-elseif(WITH_CUDNN)
-  message(FATAL_ERROR "WITH_CUDNN=ON requires WITH_CUDA=ON")
 else()
   add_library(${PROJECT_NAME} ${SOURCES})
 endif()
