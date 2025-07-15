@@ -1,6 +1,5 @@
 #include "cuda/utils.h"
 #include "dequantize.cuh"
-#include <cublas_v2.h>
 #include <ctranslate2/ops/awq/gemm.h>
 
 namespace ctranslate2 {

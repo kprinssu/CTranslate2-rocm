@@ -1,6 +1,5 @@
 #include "cuda/utils.h"
 #include "dequantize.cuh"
-#include <cublas_v2.h>
 #include <ctranslate2/ops/awq/gemv.h>
 #define PACK_FACTOR 8
 #define WARP_SIZE 32
