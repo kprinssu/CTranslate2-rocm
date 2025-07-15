@@ -59,17 +59,13 @@ namespace ctranslate2 {
                                                   /*pad_h=*/0, /*pad_w=*/_padding,
                                                   /*stride_h=*/1, /*stride_w=*/_stride,
                                                   /*dilation_h=*/1, /*dilation_w=*/_dilation
-                                                ));
+                                                  ));
 
       CUDNN_CHECK(cudnnSetConvolutionMathType(conv_desc, CUDNN_DEFAULT_MATH));
       if (_groups > 1)
         CUDNN_CHECK(cudnnSetConvolutionGroupCount(conv_desc, _groups));
       if (data_type == CUDNN_DATA_HALF)
         CUDNN_CHECK(cudnnSetConvolutionMathType(conv_desc, CUDNN_TENSOR_OP_MATH));
-
-      cudnnHandle_t handle = cuda::get_cudnn_handle();
-                                                  /*dilation_h=*/1, /*dilation_w=*/_dilation
-                                                  ));
 
       miopenHandle_t handle = cuda::get_cudnn_handle();
 
