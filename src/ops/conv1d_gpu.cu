@@ -61,11 +61,8 @@ namespace ctranslate2 {
                                                   /*dilation_h=*/1, /*dilation_w=*/_dilation
                                                   ));
 
-      CUDNN_CHECK(cudnnSetConvolutionMathType(conv_desc, CUDNN_DEFAULT_MATH));
       if (_groups > 1)
-        CUDNN_CHECK(cudnnSetConvolutionGroupCount(conv_desc, _groups));
-      if (data_type == CUDNN_DATA_HALF)
-        CUDNN_CHECK(cudnnSetConvolutionMathType(conv_desc, CUDNN_TENSOR_OP_MATH));
+        CUDNN_CHECK(miopenSetConvolutionGroupCount(conv_desc, _groups));
 
       miopenHandle_t handle = cuda::get_cudnn_handle();
 
