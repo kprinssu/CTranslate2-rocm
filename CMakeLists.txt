@@ -134,7 +134,6 @@ set(SOURCES
   src/generator.cc
   src/layers/attention_layer.cc
   src/layers/attention.cc
-  src/layers/flash_attention.cc
   src/layers/common.cc
   src/layers/decoder.cc
   src/layers/transformer.cc
@@ -164,8 +163,6 @@ set(SOURCES
   src/ops/cos.cc
   src/ops/dequantize.cc
   src/ops/dequantize_cpu.cc
-  src/ops/flash_attention.cc
-  src/ops/flash_attention_cpu.cc
   src/ops/gather.cc
   src/ops/gather_cpu.cc
   src/ops/gelu.cc
@@ -210,10 +207,6 @@ set(SOURCES
   src/ops/nccl_ops_cpu.cc
   src/ops/awq/dequantize.cc
   src/ops/awq/dequantize_cpu.cc
-  src/ops/awq/gemm.cc
-  src/ops/awq/gemm_cpu.cc
-  src/ops/awq/gemv.cc
-  src/ops/awq/gemv_cpu.cc
   src/ops/sum.cc
   src/padder.cc
   src/profiler.cc
