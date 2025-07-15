@@ -205,8 +205,6 @@ set(SOURCES
   src/ops/transpose.cc
   src/ops/nccl_ops.cc
   src/ops/nccl_ops_cpu.cc
-  src/ops/awq/dequantize.cc
-  src/ops/awq/dequantize_cpu.cc
   src/ops/sum.cc
   src/padder.cc
   src/profiler.cc
