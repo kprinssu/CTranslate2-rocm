@@ -266,6 +266,7 @@ set(CUDA_SOURCES
   src/ops/concat_split_slide_gpu.cu
   src/ops/conv1d_gpu.cu
   src/ops/dequantize_gpu.cu
+  src/ops/flash_attention_gpu.cu
   src/ops/gather_gpu.cu
   src/ops/gumbel_max_gpu.cu
   src/ops/layer_norm_gpu.cu
@@ -279,6 +280,9 @@ set(CUDA_SOURCES
   src/ops/topp_mask_gpu.cu
   src/ops/quantize_gpu.cu
   src/ops/nccl_ops_gpu.cu
+  src/ops/awq/gemm_gpu.cu
+  src/ops/awq/gemv_gpu.cu
+  src/ops/awq/dequantize_gpu.cu
 )
 set(LIBRARIES
   ${CMAKE_THREAD_LIBS_INIT}
@@ -748,33 +752,7 @@ if(NOT (WITH_CUDA OR WITH_HIP))
   else()
     add_library(${PROJECT_NAME} ${SOURCES})
   endif()
-    src/cuda/allocator.cc
-    src/cuda/primitives.cu
-    src/cuda/random.cu
-    src/cuda/utils.cc
-    src/ops/alibi_add_gpu.cu
-    src/ops/bias_add_gpu.cu
-    src/ops/concat_split_slide_gpu.cu
-    src/ops/conv1d_gpu.cu
-    src/ops/dequantize_gpu.cu
-    src/ops/flash_attention_gpu.cu
-    src/ops/gather_gpu.cu
-    src/ops/gumbel_max_gpu.cu
-    src/ops/layer_norm_gpu.cu
-    src/ops/mean_gpu.cu
-    src/ops/multinomial_gpu.cu
-    src/ops/rms_norm_gpu.cu
-    src/ops/rotary_gpu.cu
-    src/ops/softmax_gpu.cu
-    src/ops/tile_gpu.cu
-    src/ops/topk_gpu.cu
-    src/ops/topp_mask_gpu.cu
-    src/ops/quantize_gpu.cu
-    src/ops/nccl_ops_gpu.cu
-    src/ops/awq/gemm_gpu.cu
-    src/ops/awq/gemv_gpu.cu
-    src/ops/awq/dequantize_gpu.cu
-  )
+endif()
 
 
 elseif(WITH_CUDNN)
