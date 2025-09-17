@@ -13,7 +13,7 @@
 #define cudaDataType_t  hipDataType
 #define cublasComputeType_t hipblasComputeType_t
 #define CUDA_R_16F HIP_R_16F
-#define CUBLAS_COMPUTE_16F HIPBLAS_COMPUTE_16F 
+#define CUBLAS_COMPUTE_16F HIPBLAS_COMPUTE_16F
 #define CUBLAS_COMPUTE_32F HIPBLAS_COMPUTE_32F
 #define CUBLAS_COMPUTE_32I HIPBLAS_COMPUTE_32I
 #define CUDA_R_32F HIP_R_32F
@@ -24,6 +24,12 @@
 #define CUBLAS_GEMM_DEFAULT_TENSOR_OP HIPBLAS_GEMM_DEFAULT
 #define cublasSgemmStridedBatched hipblasSgemmStridedBatched
 #define cublasGemmStridedBatchedEx hipblasGemmStridedBatchedEx_v2
+
+#if HIP_VERSION >= 70000000
+  #define cublasGemmEx hipblasGemmEx
+  #define cublasGemmStridedBatchedEx hipblasGemmStridedBatchedEx
+#endif
+
 #else
 #include <cuda_runtime.h>
 #include <cublas_v2.h>
@@ -86,7 +92,7 @@ namespace ctranslate2 {
   #if CUDA_CAN_USE_BF16_MATH
   template void primitives<Device::CUDA>::convert(const float*, bfloat16_t*, dim_t);
   template void primitives<Device::CUDA>::convert(const bfloat16_t*, float*, dim_t);
-  #endif 
+  #endif
 
   struct convert_via_float {
     template <typename T>

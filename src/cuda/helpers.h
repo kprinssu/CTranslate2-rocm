@@ -415,7 +415,11 @@ namespace ctranslate2 {
     // They help define row-wise reduction where each block handles a single row.
 
 #ifdef CT2_USE_HIP
-  #define C10_WARP_SIZE warpSize //TODO: detect arch to set 32 for rdna
+  #if defined(USE_ROCM) && defined(__GFX9__)
+    #define C10_WARP_SIZE 64
+  #else
+    #define C10_WARP_SIZE 32
+  #endif
 #else
   #define C10_WARP_SIZE 32
 #endif
